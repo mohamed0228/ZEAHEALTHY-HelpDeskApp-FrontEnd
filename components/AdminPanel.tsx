@@ -3,7 +3,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styled, { keyframes } from 'styled-components';
 
-const API_URL = 'http://localhost:5000/api'; // Your backend API URL
+// const API_URL = 'http://localhost:5000/api'; // Your backend API URL
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 interface Ticket {
   id: number;
