@@ -1,14 +1,15 @@
-// components/AdminPanel.tsx
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import styled, { keyframes } from 'styled-components';
+import styles from './AdminPanel.module.css'; // Importing the CSS module
 
-// const API_URL = 'http://localhost:5000/api'; // Your backend API URL
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'; // Ensure to use the environment variable if available
 
 interface Ticket {
   id: number;
   name: string;
+  email: string; // Include email in Ticket interface
   description: string;
   status: string;
   response?: string;
@@ -58,133 +59,63 @@ const AdminPanel: React.FC = () => {
     if (!selectedTicket) return;
     try {
       await axios.put(`${API_URL}/admin/tickets/${selectedTicket.id}`, { response, status });
-      alert('Ticket updated successfully!');
+      toast.success('Ticket updated successfully!');
       setSelectedTicket(null); // Reset selected ticket to trigger re-fetch
+      fetchTickets(); // Optionally refetch tickets after successful update
     } catch (error) {
       setError('Error updating ticket. Please try again.');
     }
   };
 
   return (
-    <StyledAdminPanel>
+    <div className={styles.adminPanel}>
+      <button className={styles.backButton} onClick={() => window.history.back()}>Back to Home</button>
       <h2>Tickets List</h2>
-      <h3>please click a ticket to select </h3>
-      <TicketList>
-        {tickets.map(ticket => (
-          <TicketItem key={ticket.id} onClick={() => handleTicketSelect(ticket)}>
-            {ticket.name} - {ticket.status}
-          </TicketItem>
+      <h3>Please click a ticket to select</h3>
+      <ul className={styles.ticketList}>
+        {tickets.map((ticket) => (
+          <li
+            key={ticket.id}
+            className={`${styles.ticketItem} ${selectedTicket?.id === ticket.id ? styles.selectedTicket : ''}`}
+            onClick={() => handleTicketSelect(ticket)}
+          >
+            <div className={styles.ticketHeader}>
+              <span>{ticket.name}</span>
+              <br/> <br/> <br/>
+              <span style={{color :"black", fontWeight:"bolder"}}>{ticket.email}</span> {/* Display email */}
+            </div>
+            <div className={styles.ticketContent}>
+              <p>{ticket.description.substring(0, 25)}...</p> {/* Show truncated description */}
+              <span style={{color :"green", fontWeight:"bolder"}}>Status: {ticket.status}</span>
+            </div>
+          </li>
         ))}
-      </TicketList>
+      </ul>
 
       {selectedTicket && (
-        <SelectedTicket>
+        <div className={styles.selectedTicket}>
           <h3>Selected Ticket: {selectedTicket.id}</h3>
-          <h4>description</h4>
+          <h4>Description</h4>
           <p>{selectedTicket.description}</p>
-          <h4>drop comment or response</h4>
-          <ResponseTextArea value={response} onChange={handleResponseChange} />
+          <h4>Drop comment or response</h4>
+          <textarea className={styles.responseTextArea} value={response} onChange={handleResponseChange} />
           <h3>Status</h3>
-          <StatusSelect value={status} onChange={handleStatusChange}>
+          <select className={styles.statusSelect} value={status} onChange={handleStatusChange}>
             <option value="New">New</option>
             <option value="In Progress">In Progress</option>
             <option value="Resolved">Resolved</option>
-          </StatusSelect>
-          <UpdateButton onClick={handleUpdateTicket}>Update Ticket</UpdateButton>
-        </SelectedTicket>
+          </select>
+          <button className={styles.updateButton} onClick={handleUpdateTicket}>
+            Update Ticket
+          </button>
+        </div>
       )}
 
-      {error && <ErrorMessage>{error}</ErrorMessage>}
-    </StyledAdminPanel>
+      {error && <p className={styles.errorMessage}>{error}</p>}
+      {/* ToastContainer for toast notifications */}
+      <ToastContainer />
+    </div>
   );
 };
 
 export default AdminPanel;
-
-// Styled Components
-const fadeIn = keyframes`
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-`;
-
-const StyledAdminPanel = styled.div`
-  padding: 20px;
-  background-color: #f7f7f7;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  animation: ${fadeIn} 1s ease-in-out;
-
-  h2 {
-    color: #333;
-    text-align: center;
-  }
-`;
-
-const TicketList = styled.ul`
-  list-style-type: none;
-  padding: 0;
-`;
-
-const TicketItem = styled.li`
-  padding: 10px;
-  margin: 5px 0;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: #e6f7ff;
-  }
-`;
-
-const SelectedTicket = styled.div`
-  margin-top: 20px;
-  padding: 20px;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  animation: ${fadeIn} 1s ease-in-out;
-`;
-
-const ResponseTextArea = styled.textarea`
-  width: 100%;
-  padding: 10px;
-  margin-top: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-`;
-
-const StatusSelect = styled.select`
-  width: 100%;
-  padding: 10px;
-  margin-top: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-`;
-
-const UpdateButton = styled.button`
-  display: block;
-  margin: 20px auto 0;
-  padding: 10px 20px;
-  background-color: #4caf50;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: #45a049;
-  }
-`;
-
-const ErrorMessage = styled.p`
-  color: red;
-  text-align: center;
-`;

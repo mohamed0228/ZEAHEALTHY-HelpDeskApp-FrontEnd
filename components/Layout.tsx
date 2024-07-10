@@ -1,29 +1,3 @@
-// import React, { ReactNode } from 'react';
-// import Head from 'next/head';
-
-// type LayoutProps = {
-//   children: ReactNode;
-// };
-
-// const Layout: React.FC<LayoutProps> = ({ children }) => (
-//   <div>
-//     <Head>
-//       <title>Help Desk App</title>
-//       <link rel="icon" href="/favicon.ico" />
-//     </Head>
-
-//     <main>{children}</main>
-
-//     <footer>
-//     <p>&copy; 2024 mohammed amin boussaada</p>
-//     <p>2013440925
-//     </p>
-//     <p>mohammedaminboussaada@gmail.com</p>
-//     </footer>
-//   </div>
-// );
-
-// export default Layout;
 import React, { ReactNode } from 'react';
 import Head from 'next/head';
 import styled from 'styled-components';
@@ -65,8 +39,8 @@ const Main = styled.main`
 `;
 
 const Footer = styled.footer`
-  background-color: #333;
-  color: #fff;
+  background-color: #eaf2f8; /* Light blue background */
+  color: #333; /* Dark text color for contrast */
   padding: 20px 0;
 `;
 

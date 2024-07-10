@@ -1,0 +1,79 @@
+.createTicketForm {
+  padding: 20px;
+  background-color: #f7f7f7;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 60%;
+  margin: 0 auto;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.formInput,
+.formTextarea {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.formTextarea {
+  resize: none;
+}
+
+.formSubmitButton {
+  padding: 10px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.formSubmitButton:hover {
+  background-color: #45a049;
+}
+
+.errorMessage {
+  color: red;
+  text-align: center;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .createTicketForm {
+    width: 95%;
+  }
+}
+.backButton {
+  padding: 10px 20px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 20px;
+  outline: none; /* Remove default button outline */
+}
+
+.backButton:hover {
+  background-color: #2980b9;
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.backButton:focus {
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.5); /* Add focus outline */
+}

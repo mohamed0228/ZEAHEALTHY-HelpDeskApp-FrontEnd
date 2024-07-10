@@ -1,0 +1,123 @@
+/* AdminPanel.module.css */
+
+.adminPanel {
+    padding: 20px;
+    background-color: #f7f7f7;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 1s ease-in-out;
+  }
+  
+  .backButton {
+    display: block;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  
+    &:hover {
+      background-color: #2980b9;
+    }
+  }
+  
+  .ticketList {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .ticketItem {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    width: calc(33.33% - 20px); /* Adjust width for 3 tickets in a row with gap */
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  
+    &:hover {
+      background-color: #e6f7ff;
+    }
+  }
+  
+  .selected {
+    background-color: #4ca7; /* Change background color for selected ticket to green */
+  }
+  
+  .ticketHeader {
+    margin-bottom: 10px;
+  }
+  
+  .ticketHeader h4 {
+    margin: 0;
+  }
+  
+  .ticketHeader span {
+    font-weight: bold; /* Make name bold */
+    color: #3498db; /* Make email blue */
+  }
+  
+  .ticketContent {
+    color: #555;
+  }
+  
+  .selectedTicket {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .responseTextArea,
+  .statusSelect {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .updateButton {
+    display: block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  
+    &:hover {
+      background-color: #45a049;
+    }
+  }
+  
+  .errorMessage {
+    color: red;
+    text-align: center;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .ticketItem {
+      width: 100%; /* Full width on smaller screens */
+    }
+  }
+  
